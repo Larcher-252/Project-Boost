@@ -10,10 +10,16 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] ParticleSystem finishParticle;
     AudioSource eventAudio;
     bool isTransition = false;
+    [SerializeField] bool enableCollision = true;
 
     void Start()
     {
         eventAudio = GetComponent<AudioSource>();
+    }
+
+    void Update() 
+    {
+        CheatKeys();
     }
     
     private void OnCollisionEnter(Collision other) {
@@ -48,6 +54,7 @@ public class CollisionHandler : MonoBehaviour
 
     void CrashSequence()
     {
+        if (!enableCollision) return;
         GetComponent<Movement>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         eventAudio.Stop();
@@ -72,5 +79,17 @@ public class CollisionHandler : MonoBehaviour
             sceneIndex = 0;
         }
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    void CheatKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            enableCollision = !enableCollision;
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            NextLevel();
+        }
     }
 }
