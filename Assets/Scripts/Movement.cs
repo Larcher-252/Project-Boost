@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     AudioSource boostAudio;
     [SerializeField] float thrustSpeed = 250f;
     [SerializeField] float rotateSpeed = 100f;
+    [SerializeField] AudioClip boostSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,10 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rb.AddRelativeForce(Vector3.up * thrustSpeed * Time.deltaTime);
-            if (!boostAudio.isPlaying) boostAudio.Play();
+            if (!boostAudio.isPlaying)
+            {
+                boostAudio.PlayOneShot(boostSound);
+            }
         }
         else
         {
