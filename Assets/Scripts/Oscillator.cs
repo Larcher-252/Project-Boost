@@ -17,6 +17,8 @@ public class Oscillator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (period <= Mathf.Epsilon) return;
+        
         float cycles = Time.time / period; // Growing over time
         const float tau = Mathf.PI * 2;      // Get tau
         float sinWay = Mathf.Sin(cycles * tau); // Get result of sin between -1 and 1
